@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Resultado do formulário</title>
+</head>
+<body>
+	<h1>Dados recebidos</h1>
+	<div id="resultado" aria-live="polite"></div>
+
+	<script>
+		const resultado = document.getElementById('resultado');
+		const parametros = new URLSearchParams(window.location.search);
+
+		if ([...parametros].length === 0) {
+			resultado.textContent = 'Nenhum dado foi enviado.';
+		} else {
+			const lista = document.createElement('dl');
+
+			for (const [campo, valor] of parametros) {
+				const nome = document.createElement('dt');
+				const dado = document.createElement('dd');
+				nome.textContent = campo;
+				dado.textContent = valor || '(vazio)';
+				lista.append(nome, dado);
+			}
+
+			resultado.appendChild(lista);
+		}
+	</script>
+</body>
+</html>
